@@ -8,7 +8,7 @@ pipeline {
     stage('Check web') {
       steps {
         script {
-          content = sh(script: "curl -L localhost:8080", returnStdout: true).trim
+          content = sh(script: "curl -L localhost:8080", returnStdout: true)
           echo content
           if ( content.contains('server1') ) {
             currentBuild.result = 'FAILURE'
