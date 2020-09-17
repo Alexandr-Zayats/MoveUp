@@ -2,7 +2,7 @@ pipeline {
   triggers {
     cron('H */4 * * 1-5')
   }
-  agent { any }
+  agent any
 
   stages {
     stage('Check web') {
