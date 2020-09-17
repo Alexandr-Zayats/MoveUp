@@ -1,20 +1,17 @@
 pipeline {
   triggers {
-    agent any
-    triggers {
-        cron('H */4 * * 1-5')
-    }
-    agent { any }
+    cron('H */4 * * 1-5')
+  }
+  agent { any }
 
-    stages {
-      stage('Check web') {
-        steps {
-          script {
-            content = sh(script: "curl -L localhost:8080", returnStdout: true).trim
-            if ( content.contains('server1') ) {
-              currentBuild.result = 'FAILURE'
-              error("Server returned 'server1'")
-            }
+  stages {
+    stage('Check web') {
+      steps {
+        script {
+          content = sh(script: "curl -L localhost:8080", returnStdout: true).trim
+          if ( content.contains('server1') ) {
+            currentBuild.result = 'FAILURE'
+            error("Server returned 'server1'")
           }
         }
       }
