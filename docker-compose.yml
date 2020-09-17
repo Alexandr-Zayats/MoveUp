@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+
+  web1:
+    image: 'nginx:latest'
+    container_name: 'web1'
+    volumes:
+      - '${PWD}/configuration/web.conf:/etc/nginx/conf.d/application.conf'
+      - '${PWD}/configuration/web1.html:/var/www/index.html'
+    networks:
+      web:
+
+  web2:
+    image: 'nginx:latest'
+    container_name: 'web2'
+    volumes:
+      - '${PWD}/configuration/web.conf:/etc/nginx/conf.d/application.conf'
+      - '${PWD}/configuration/web2.html:/var/www/index.html'
+    networks:
+      web:
+
+  lb:
+    image: 'nginx:latest'
+    container_name: 'lb'
+    ports:
+      - '8080:80'
+    volumes:
+      - '${PWD}/configuration/loadBalancer.conf:/etc/nginx/nginx.conf'
+    networks:
+      web:
+
+networks:
+  web:
+
